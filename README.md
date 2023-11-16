@@ -1,6 +1,7 @@
 # proxy_switcher
 Proxy switching tool that runs in the systemtray of the GNOME/MATE/CINNAMON desktop environment
-タスクトレイでプロキシを切り替える（auto/manual/none）ツールを作りました．
+
+Gnome系デスクトップ環境のタスクトレイ上でプロキシを切り替える（auto/manual/none）ツールを作ってみました（手抜き）．
 
 ![](https://github.com/takago/proxy_switcher/blob/main/screenshot.png)
 
