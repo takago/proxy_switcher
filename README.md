@@ -1,7 +1,9 @@
 # proxy_switcher
 Proxy switching tool that runs in the systemtray of the GNOME/MATE/CINNAMON desktop environment
+タスクトレイでプロキシを切り替える（auto/manual/none）ツールを作りました．
 
 ![](https://github.com/takago/proxy_switcher/blob/main/screenshot.png)
+
 
 ```
 git clone https://github.com/takago/proxy_switcher.git
@@ -16,5 +18,5 @@ cp tkg_proxy.desktop  ~/.config/autostart/
 sudo make uninstall
 rm ~/.config/autostart/tkg_proxy.desktop
 
-# ここでログインし直せばOK
 ```
+
