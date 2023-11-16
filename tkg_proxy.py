@@ -21,7 +21,9 @@ class MainWindow(QMainWindow):
                          'none':   img_path+'none.png'}
 
         # 現在のプロキシ設定(manual/auto/none)を取得
-        proxy_mode=os.popen("gsettings get org.gnome.system.proxy mode").read().strip()[1:-1]
+        p=os.popen("gsettings get org.gnome.system.proxy mode")
+        proxy_mode=p.read().strip()[1:-1]
+        p.close()
         # print(proxy_mode)
 
         # コンテキストメニューの作成
