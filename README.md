@@ -1,4 +1,4 @@
-# proxy_switcher
+# proxy_switcher (tkg_proxy)
 Proxy switching tool that runs in the systemtray of the GNOME/MATE/CINNAMON desktop environment
 
 Gnome系デスクトップ環境のタスクトレイ上でプロキシを切り替える（auto/manual/none）ツールを作ってみました（gsettingsコマンドを呼び出すという手抜き設計）．
