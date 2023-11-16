@@ -9,6 +9,7 @@ Gnome系デスクトップ環境のタスクトレイ上でプロキシを切り
 
 ![](https://github.com/takago/proxy_switcher/blob/main/omake.svg)
 
+
 ----
 ## インストール
 ```
