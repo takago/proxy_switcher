@@ -27,7 +27,7 @@ rm ~/.config/autostart/tkg_proxy.desktop
 ```
 ----
 ## 補足（大学のプロキシをLinuxに登録する方法）
-以下のコマンドを一度だけ実行してください．
+学内サーバに接続できる環境で，以下のコマンドを一度だけ実行してください．
 ```
 cd /tmp
 wget http://darkside.info.kanazawa-it.ac.jp/~takago/set_systemproxy.sh
