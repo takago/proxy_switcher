@@ -1,5 +1,4 @@
 install:
-
 	cp -fr ./pixmaps/ /usr/local/share/
 	cp tkg_proxy.py /usr/local/bin/tkg_proxy
 	chmod uog+x /usr/local/bin/tkg_proxy
