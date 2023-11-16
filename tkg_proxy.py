@@ -47,7 +47,7 @@ class MainWindow(QMainWindow):
         new_proxy_mode = action.text()  # 押された項目を調べる
         # print(new_proxy_mode)
         cmd="gsettings set org.gnome.system.proxy mode '%s'" % new_proxy_mode
-        os.popen(cmd)
+        os.system(cmd)
         self.tray.setIcon(QIcon(self.my_icons[new_proxy_mode])) # アイコンの変更
 
 if __name__ == '__main__':
