@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=tkg_proxy
+Icon=/usr/local/share/pixmaps/tkg_proxy/auto.png
+Exec=/usr/local/bin/tkg_proxy
+Comment=Proxy Switcher for GNOME/MATE/CINNAMON (TAKAGO_LAB.)
+Terminal=false
+Type=Application
+X-GNOME-Autostart-enabled=true
