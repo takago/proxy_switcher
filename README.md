@@ -5,6 +5,9 @@ Gnome系デスクトップ環境のタスクトレイ上でプロキシを切り
 
 ![](https://github.com/takago/proxy_switcher/blob/main/screenshot.png)
 
+アイコンもテキトウに作ったものです
+
+![](https://github.com/takago/proxy_switcher/blob/main/omake.svg)
 
 ```
 git clone https://github.com/takago/proxy_switcher.git
