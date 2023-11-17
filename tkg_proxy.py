@@ -1,14 +1,15 @@
 #! /usr/bin/python3
 
 # GNOME系のデスクトップ(gnome/mate/cinnamon)のタスクトレイでプロキシを変更できるようにするプログラム
-# 鷹合研(2023,11/16)
+# 鷹合研(2023,11/17)
 #
 
+from gi.repository import Gio, GLib
 from qtpy.QtGui import *
 from qtpy.QtCore import *
 from qtpy.QtWidgets import *
 import sys
-import os
+
 
 img_path='/usr/local/share/pixmaps/tkg_proxy/'
 
@@ -16,39 +17,57 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
 
+        self.settings = Gio.Settings(schema='org.gnome.system.proxy')
+
         self.my_icons = {'manual': img_path+'manual.png',
                          'auto':   img_path+'auto.png',
                          'none':   img_path+'none.png'}
 
         # 現在のプロキシ設定(manual/auto/none)を取得
-        p=os.popen("gsettings get org.gnome.system.proxy mode")
-        proxy_mode=p.read().strip()[1:-1]
-        p.close()
-        # print(proxy_mode)
+        mode_str = self.settings.get_value('mode').unpack()
+        # print(mode_str)
 
         # コンテキストメニューの作成
         mymenu = QMenu(self)
         group = QActionGroup(mymenu)
+        self.action=dict()
         for text in list(self.my_icons.keys()):
-            action = QAction(text, mymenu, checkable=True, checked=text==proxy_mode)
-            mymenu.addAction(action)
-            group.addAction(action)
-        group.setExclusive(True)              # 排他にする
+            self.action[text] = QAction(text, mymenu, checkable=True)
+            mymenu.addAction(self.action[text])
+            group.addAction(self.action[text])
+        group.setExclusive(True)              # 排他にする（一つチェックしたら，他のチェックが外れる）
         group.triggered.connect(self.onTriggered) # コンテキストメニューが押されたら
+
 
         # システムトレイの準備
         self.tray = QSystemTrayIcon(self)
         self.tray.setToolTip('システムプロキシの設定')
-        self.tray.setIcon(QIcon(self.my_icons[proxy_mode])) # 現在のモードにあわせたアイコンをセット
+        self.tray.setIcon(QIcon(self.my_icons[mode_str])) # 現在のモードにあわせたアイコンをセット
         self.tray.setContextMenu(mymenu)                    # コンテクストメニューを開けるようにする
+        self.tray.activated.connect(self.onActivated)       # クリックされたら
         self.tray.show()
 
-    def onTriggered(self, action):
-        new_proxy_mode = action.text()  # 押された項目を調べる
+        # タイマー
+        self.timer = QTimer()
+        self.timer.setSingleShot(False)  # 連続 or 1ショットか
+        self.timer.setInterval(2000)
+        self.timer.timeout.connect(self.onTimeout)
+        self.timer.start()
+
+    def onTriggered(self, action):    
+        new_mode_str = action.text()  # 押された項目を調べる
         # print(new_proxy_mode)
-        cmd="gsettings set org.gnome.system.proxy mode '%s'" % new_proxy_mode
-        os.system(cmd)
-        self.tray.setIcon(QIcon(self.my_icons[new_proxy_mode])) # アイコンの変更
+        self.settings.set_value('mode', GLib.Variant('s',new_mode_str))
+        self.tray.setIcon(QIcon(self.my_icons[new_mode_str])) # アイコンの変更
+
+    def onActivated(self, reason):  # 最新の情報を取得
+        # print('reason)
+        return
+
+    def onTimeout(self):                  # 一定時間ごとに
+        mode_str = self.settings.get_value('mode').unpack() # モードをチェック
+        self.tray.setIcon(QIcon(self.my_icons[mode_str]))   # アイコンの変更
+        self.action[mode_str].setChecked(True)              # 選択状態にしておく
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

@@ -5,7 +5,7 @@ install:
 	chmod uog+r /usr/local/share/pixmaps/tkg_proxy/*.png
 
 	@echo
-	@echo "# sudo apt-get install python3-qtpy"
+	@echo "# sudo apt-get install python3-qtpy python3-gi"
 	@echo "# cp tkg_proxy.desktop  ~/.config/autostart/"
 
 uninstall:
