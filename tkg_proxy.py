@@ -60,8 +60,8 @@ class MainWindow(QMainWindow):
         self.settings.set_value('mode', GLib.Variant('s',new_mode_str))
         self.tray.setIcon(QIcon(self.my_icons[new_mode_str])) # アイコンの変更
 
-    def onActivated(self, reason):  # 最新の情報を取得
-        # print(return)
+    def onActivated(self, reason):  # 何もしない（本来はプロキシ設定ツールを起動したいが...）
+        # print(reason)
         return
 
     def onTimeout(self):                  # 一定時間ごとに
