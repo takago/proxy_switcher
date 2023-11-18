@@ -19,8 +19,8 @@ class MainWindow(QMainWindow):
 
         self.settings = Gio.Settings(schema='org.gnome.system.proxy')
 
-        self.my_icons = {'manual': img_path+'manual.png',
-                         'auto':   img_path+'auto.png',
+        self.my_icons = {'auto':   img_path+'auto.png',
+                         'manual': img_path+'manual.png',
                          'none':   img_path+'none.png'}
 
         # 現在のプロキシ設定(manual/auto/none)を取得
@@ -54,20 +54,34 @@ class MainWindow(QMainWindow):
         self.timer.timeout.connect(self.onTimeout)
         self.timer.start()
 
-    def onTriggered(self, action):    
+    def onTriggered(self, action):
         new_mode_str = action.text()  # 押された項目を調べる
         # print(new_proxy_mode)
         self.settings.set_value('mode', GLib.Variant('s',new_mode_str))
         self.tray.setIcon(QIcon(self.my_icons[new_mode_str])) # アイコンの変更
 
     def onActivated(self, reason):  # 最新の情報を取得
-        # print('reason)
+        # print(return)
         return
 
     def onTimeout(self):                  # 一定時間ごとに
         mode_str = self.settings.get_value('mode').unpack() # モードをチェック
         self.tray.setIcon(QIcon(self.my_icons[mode_str]))   # アイコンの変更
         self.action[mode_str].setChecked(True)              # 選択状態にしておく
+
+        if mode_str == 'auto':
+            s=self.settings.get_value('autoconfig-url').unpack()
+        elif mode_str == 'manual':
+            s=''
+            for ptcl in ['http','https','ftp','socks']:
+                st = Gio.Settings(schema='org.gnome.system.proxy.'+ptcl)
+                host = str(st.get_value('host').unpack())
+                port = str(st.get_value('port').unpack())
+                s += ptcl+'\t'+host+':'+port+'\n'
+            s += 'ignore-hosts\t'+str(self.settings.get_value('ignore-hosts').unpack())
+        else:
+            s='no proxy'
+        self.tray.setToolTip(s) # ツールチップの差し替え
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
