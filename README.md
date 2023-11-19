@@ -3,7 +3,7 @@ Proxy switching tool that runs in the systemtray of the GNOME/MATE/CINNAMON desk
 
 Gnome系デスクトップ環境のシステムトレイ上でプロキシ設定を確認したり，切り替えたりできるツールを作ってみました．
 
-![](https://github.com/takago/proxy_switcher/blob/main/screenshot.png)
+![](https://github.com/takago/proxy_switcher/blob/main/screenshot01.png)
 
 ![](https://github.com/takago/proxy_switcher/blob/main/screenshot02.png)
 
