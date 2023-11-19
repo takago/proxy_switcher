@@ -5,6 +5,8 @@ Gnome系デスクトップ環境のシステムトレイ上でプロキシ設定
 
 ![](https://github.com/takago/proxy_switcher/blob/main/screenshot.png)
 
+![](https://github.com/takago/proxy_switcher/blob/main/screenshot02.png)
+
 アイコンは inkscape でテキトウに作りました
 
 ![](https://github.com/takago/proxy_switcher/blob/main/omake.svg)
