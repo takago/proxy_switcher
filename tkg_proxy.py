@@ -60,9 +60,19 @@ class MainWindow(QMainWindow):
         self.settings.set_value('mode', GLib.Variant('s',new_mode_str))
         self.tray.setIcon(QIcon(self.my_icons[new_mode_str])) # アイコンの変更
 
-    def onActivated(self, reason):  # 何もしない（本来はプロキシ設定ツールを起動したいが...）
+    def onActivated(self, reason):  # クリックしたら切り替える
         # print(reason)
-        return
+        mode_str = self.settings.get_value('mode').unpack() # モードをチェック
+        if mode_str == 'manual' or mode_str == 'auto':
+            mode_str = 'none'
+        else:
+            if reason == QSystemTrayIcon.MiddleClick:
+                mode_str = 'manual'
+            else:
+                mode_str = 'auto'
+        self.settings.set_value('mode', GLib.Variant('s',mode_str)) # 設定変更
+        self.tray.setIcon(QIcon(self.my_icons[mode_str]))   # アイコンの変更
+        self.action[mode_str].setChecked(True)              # 選択状態にしておく
 
     def onTimeout(self):                  # 一定時間ごとに
         mode_str = self.settings.get_value('mode').unpack() # モードをチェック

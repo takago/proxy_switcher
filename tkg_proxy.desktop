@@ -1,3 +1,4 @@
+#!/usr/bin/env xdg-open
 [Desktop Entry]
 Name=tkg_proxy
 Icon=/usr/local/share/pixmaps/tkg_proxy/auto.png
